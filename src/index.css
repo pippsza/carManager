@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@theme {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-main: var(--main);
+  --color-gray: var(--gray);
+  --color-button: var(--button);
+  --color-button-hover: var(--button-hover);
+  --color-gray-light: var(--gray-light);
+  --color-badges: var(--badges);
+  --color-inputs: var(--inputs);
+  --color-white: var(--white);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --container-DEFAULT: 1440px;
+  --container-padding: 120px;
+}
+
+:root {
+  --radius: 0.75rem;
+  --main: #101828;
+  --gray: #8d929a;
+  --button: #3470ff;
+  --button-hover: #0b44cd;
+  --gray-light: #dadde1;
+  --badges: #f2f4f7;
+  --inputs: #f7f7f7;
+  --white: #ffffff;
+  --background: var(--white);
+  --foreground: var(--main);
+  --primary: var(--button);
+  --primary-foreground: var(--white);
+  --secondary: var(--gray-light);
+  --secondary-foreground: var(--main);
+  --border: var(--gray-light);
+  --input: var(--inputs);
+  --ring: var(--button);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    font-family: "Manrope", sans-serif;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .container {
+    width: 1440px;
+    margin: 0 auto;
+    padding-left: 120px;
+    padding-right: 120px;
+    box-sizing: border-box;
+  }
+
+  .card {
+    @apply bg-white rounded-lg p-6 transition-shadow duration-200;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+  }
+
+  .card:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+  }
+
+  .btn-primary {
+    @apply bg-primary hover:bg-button-hover text-primary-foreground font-medium px-4 py-2 rounded-md transition-colors duration-200 border-none cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary hover:bg-main text-secondary-foreground font-medium px-4 py-2 rounded-md transition-colors duration-200 border-none cursor-pointer;
+  }
+
+  .input-field {
+    @apply border border-border rounded-md px-3 py-2 outline-none transition-colors duration-200 focus:ring-2 focus:ring-ring focus:border-transparent;
+  }
+}
