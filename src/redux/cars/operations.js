@@ -20,7 +20,7 @@ export const fetchFilteredCars = createAsyncThunk(
   async ({ filters, page = 1 }, thunkAPI) => {
     try {
       const params = new URLSearchParams();
-      
+
       if (filters.brand) {
         params.append("brand", filters.brand);
       }
@@ -39,10 +39,10 @@ export const fetchFilteredCars = createAsyncThunk(
       if (page) {
         params.append("page", page);
       }
-      
+
       const queryString = params.toString();
       const url = queryString ? `/cars?${queryString}` : "/cars";
-      
+
       console.log("Fetching cars with URL:", url);
       const res = await axios.get(url);
       return res.data;
@@ -50,7 +50,8 @@ export const fetchFilteredCars = createAsyncThunk(
       return thunkAPI.rejectWithValue(error.message);
     }
   }
-);export const fetchCarById = createAsyncThunk(
+);
+export const fetchCarById = createAsyncThunk(
   "cars/fetchCarById",
   async (carId, thunkAPI) => {
     try {

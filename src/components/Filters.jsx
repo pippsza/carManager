@@ -135,7 +135,7 @@ export default function Filters() {
     });
 
     const filters = {};
-    
+
     if (selectedBrand) {
       filters.brand = selectedBrand;
     }
@@ -154,7 +154,8 @@ export default function Filters() {
     // Reset cars before new search to prevent duplicates
     dispatch(resetCars());
     dispatch(fetchFilteredCars({ filters, page: 1 }));
-  };  const customStyles = {
+  };
+  const customStyles = {
     control: (provided) => ({
       ...provided,
 
@@ -199,8 +200,33 @@ export default function Filters() {
     dropdownIndicator: (provided) => ({
       ...provided,
       color: "var(--gray)",
+      paddingRight: "12px",
       "&:hover": {
         color: "var(--gray)",
+      },
+    }),
+    menu: (provided) => ({
+      ...provided,
+      borderRadius: "12px",
+      overflow: "hidden",
+    }),
+    menuList: (provided) => ({
+      ...provided,
+      maxHeight: "300px",
+      overflowY: "auto",
+      "&::-webkit-scrollbar": {
+        width: "8px",
+      },
+      "&::-webkit-scrollbar-track": {
+        backgroundColor: "#f1f1f1",
+        borderRadius: "4px",
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: "#c1c1c1",
+        borderRadius: "4px",
+      },
+      "&::-webkit-scrollbar-thumb:hover": {
+        backgroundColor: "#a8a8a8",
       },
     }),
   };

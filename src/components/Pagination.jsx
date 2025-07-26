@@ -1,5 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
-import { selectCurrentPage, selectTotalPages, selectIsLoadingMore } from "../redux/cars/selectors";
+import {
+  selectCurrentPage,
+  selectTotalPages,
+  selectIsLoadingMore,
+} from "../redux/cars/selectors";
 import { selectAppliedFilters } from "../redux/filters/selectors";
 import { fetchCars, fetchFilteredCars } from "../redux/cars/operations";
 
@@ -10,12 +14,17 @@ export default function Pagination() {
   const isLoadingMore = useSelector(selectIsLoadingMore);
   const appliedFilters = useSelector(selectAppliedFilters);
 
-  const hasFilters = appliedFilters.brand || appliedFilters.priceFrom || appliedFilters.priceTo || appliedFilters.mileageFrom || appliedFilters.mileageTo;
+  const hasFilters =
+    appliedFilters.brand ||
+    appliedFilters.priceFrom ||
+    appliedFilters.priceTo ||
+    appliedFilters.mileageFrom ||
+    appliedFilters.mileageTo;
   const hasMorePages = currentPage < totalPages;
 
   const handleLoadMore = () => {
     const nextPage = currentPage + 1;
-    
+
     if (hasFilters) {
       dispatch(fetchFilteredCars({ filters: appliedFilters, page: nextPage }));
     } else {
@@ -30,7 +39,7 @@ export default function Pagination() {
 
   return (
     <div className="flex items-center justify-center">
-      <button 
+      <button
         onClick={handleLoadMore}
         disabled={isLoadingMore}
         className="bg-transparent border-button border-[1px] rounded-[12px] text-main w-39 h-11 hover:border-button-hover transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"

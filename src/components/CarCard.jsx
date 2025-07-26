@@ -44,14 +44,11 @@ export default function CarCard({ car }) {
             className="w-full h-full object-cover object-center rounded-[14px]"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent"></div>
-          <button 
+          <button
             onClick={handleFavoriteClick}
             className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center hover:scale-110 transition-transform"
           >
-            <Icon 
-              name={isFavorite ? "heart2" : "heart"} 
-              className="w-5 h-5" 
-            />
+            <Icon name={isFavorite ? "heart2" : "heart"} className="w-5 h-5" />
           </button>
         </div>
         <div className="flex justify-between items-center mb-2">
