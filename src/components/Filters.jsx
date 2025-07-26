@@ -12,14 +12,13 @@ import {
   setPriceFilter,
   setMileageFilter,
 } from "../redux/filters/slice.js";
+import { fetchFilteredCars } from "../redux/cars/operations.js";
 
-// Утилитная функция для форматирования чисел с запятыми
 const formatNumberWithCommas = (num) => {
   if (!num) return "";
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-// Функция для удаления запятых из строки
 const removeCommas = (str) => {
   return str.replace(/,/g, "");
 };
@@ -31,8 +30,28 @@ const Icon = ({ name, className = "w-4 h-4" }) => (
 );
 
 const PriceValueContainer = ({ children, ...props }) => {
+  const domProps = Object.fromEntries(
+    Object.entries(props).filter(
+      ([key]) =>
+        ![
+          "clearValue",
+          "getStyles",
+          "getClassNames",
+          "getValue",
+          "hasValue",
+          "isMulti",
+          "isRtl",
+          "selectOption",
+          "selectProps",
+          "setValue",
+          "isDisabled",
+          "cx",
+        ].includes(key)
+    )
+  );
+
   return (
-    <div {...props} style={{ display: "flex", alignItems: "center" }}>
+    <div {...domProps} style={{ display: "flex", alignItems: "center" }}>
       <span style={{ color: "var(--main)", marginRight: "4px" }}>To $</span>
       {children}
     </div>
@@ -111,7 +130,27 @@ export default function Filters() {
       selectedBrand,
       priceTo,
       mileageFrom,
+      mileageTo,
     });
+
+    const filters = {};
+
+    if (selectedBrand) {
+      filters.brand = selectedBrand;
+    }
+    if (priceTo) {
+      filters.rentalPrice = priceTo;
+    }
+    if (mileageFrom) {
+      filters.minMileage = mileageFrom;
+    }
+    if (mileageTo) {
+      filters.maxMileage = mileageTo;
+    }
+
+    console.log("Sending filters to API:", filters);
+
+    dispatch(fetchFilteredCars(filters));
   };
 
   const customStyles = {
@@ -241,7 +280,7 @@ export default function Filters() {
                 value={formatNumberWithCommas(mileageFrom)}
                 onChange={handleMileageFromChange}
                 placeholder="3,000"
-                className="w-full pl-12 pr-3 py-3 rounded-[12px] text-sm font-medium border-none outline-none text-center"
+                className="w-full pl-12 pr-3 py-3 rounded-l-[12px] text-sm font-medium border-none outline-none text-center"
                 style={{
                   backgroundColor: "var(--inputs)",
                   color: "var(--main)",
@@ -261,7 +300,7 @@ export default function Filters() {
                 value={formatNumberWithCommas(mileageTo)}
                 onChange={handleMileageToChange}
                 placeholder="5,500"
-                className="w-full pl-8 pr-3 py-3 rounded-[12px] text-sm font-medium border-none outline-none text-center"
+                className="w-full pl-8 pr-3 py-3 rounded-r-[12px] text-sm font-medium border-none outline-none text-center"
                 style={{
                   backgroundColor: "var(--inputs)",
                   color: "var(--main)",

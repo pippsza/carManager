@@ -5,7 +5,7 @@ export default function Layout() {
   return (
     <>
       <Header />
-      <main className="py-21">
+      <main>
         <Outlet />
       </main>
       <footer></footer>

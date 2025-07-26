@@ -14,8 +14,18 @@ const CarInfo = ({ items }) => {
 };
 
 import Button from "./Button";
+import Icon from "./Icon";
+import { useSelector, useDispatch } from "react-redux";
+import { selectIsFavorite } from "../redux/favorites/selectors";
+import { toggleFavorite } from "../redux/favorites/slice";
 
 export default function CarCard({ car }) {
+  const dispatch = useDispatch();
+  const isFavorite = useSelector(selectIsFavorite(car.id));
+
+  const handleFavoriteClick = () => {
+    dispatch(toggleFavorite(car.id));
+  };
   const addressParts = car.address?.split(", ").slice(-2) || [];
   const firstLineItems = [...addressParts, car.rentalCompany];
   const secondLineItems = [
@@ -34,6 +44,15 @@ export default function CarCard({ car }) {
             className="w-full h-full object-cover object-center rounded-[14px]"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent"></div>
+          <button 
+            onClick={handleFavoriteClick}
+            className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center hover:scale-110 transition-transform"
+          >
+            <Icon 
+              name={isFavorite ? "heart2" : "heart"} 
+              className="w-5 h-5" 
+            />
+          </button>
         </div>
         <div className="flex justify-between items-center mb-2">
           <p className="text-main text-[16px]">

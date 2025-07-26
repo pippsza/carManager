@@ -3,16 +3,19 @@ import { selectCars } from "../redux/cars/selectors.js";
 import Container from "../components/Container.jsx";
 import CarList from "../components/CarsList.jsx";
 import Filters from "../components/Filters.jsx";
+import Pagination from "../components/Pagination";
 
 const CatalogPage = () => {
   const cars = useSelector(selectCars);
 
-  console.log("cars", cars);
+  console.log("cars from API", cars);
+
   return (
-    <div className="">
+    <div className="py-21">
       <Container>
         <Filters />
-        {cars?.cars?.length > 0 && <CarList cars={cars.cars} />}
+        {cars?.length > 0 && <CarList cars={cars} />}
+        <Pagination />
       </Container>
     </div>
   );

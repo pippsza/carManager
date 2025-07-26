@@ -7,7 +7,7 @@ import MainPage from "./pages/MainPage";
 import CatalogPage from "./pages/CatalogPage";
 import CatalogDetailPage from "./pages/CatalogDetailPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import { fetchBrands, fetchCars } from "./redux/cars/operations.js";
+import { fetchCars } from "./redux/cars/operations.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -15,10 +15,8 @@ function App() {
   useEffect(() => {
     console.log("Fetching cars...");
     dispatch(fetchCars()).then((response) => {
-      // console.log("Cars response:", response);
-    });
-    dispatch(fetchBrands()).then((response) => {
-      // console.log("Brands response:", response);
+      console.log("Cars response:", response);
+      console.log("Cars payload:", response.payload);
     });
   }, [dispatch]);
 

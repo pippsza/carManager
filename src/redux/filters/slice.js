@@ -3,39 +3,67 @@ import { createSlice } from "@reduxjs/toolkit";
 const filtersSlice = createSlice({
   name: "filters",
   initialState: {
-    brand: "",
-    priceFrom: "",
-    priceTo: "",
-    mileageFrom: "",
-    mileageTo: "",
+    current: {
+      brand: "",
+      priceFrom: "",
+      priceTo: "",
+      mileageFrom: "",
+      mileageTo: "",
+    },
+    applied: {
+      brand: "",
+      priceFrom: "",
+      priceTo: "",
+      mileageFrom: "",
+      mileageTo: "",
+    },
   },
   reducers: {
     setBrandFilter: (state, action) => {
-      state.brand = action.payload;
+      state.current.brand = action.payload;
     },
     setPriceFilter: (state, action) => {
-      state.priceFrom = action.payload.from || "";
-      state.priceTo = action.payload.to || "";
+      state.current.priceFrom = action.payload.from || "";
+      state.current.priceTo = action.payload.to || "";
     },
     setMileageFilter: (state, action) => {
-      state.mileageFrom = action.payload.from || "";
-      state.mileageTo = action.payload.to || "";
+      state.current.mileageFrom = action.payload.from || "";
+      state.current.mileageTo = action.payload.to || "";
     },
     resetFilters: (state) => {
-      state.brand = "";
-      state.priceFrom = "";
-      state.priceTo = "";
-      state.mileageFrom = "";
-      state.mileageTo = "";
+      state.current = {
+        brand: "",
+        priceFrom: "",
+        priceTo: "",
+        mileageFrom: "",
+        mileageTo: "",
+      };
+      state.applied = {
+        brand: "",
+        priceFrom: "",
+        priceTo: "",
+        mileageFrom: "",
+        mileageTo: "",
+      };
+    },
+    applyFilters: (state) => {
+      state.applied = {
+        brand: state.current.brand,
+        priceFrom: state.current.priceFrom,
+        priceTo: state.current.priceTo,
+        mileageFrom: state.current.mileageFrom,
+        mileageTo: state.current.mileageTo,
+      };
     },
   },
 });
-
-export default filtersSlice.reducer;
 
 export const {
   setBrandFilter,
   setPriceFilter,
   setMileageFilter,
   resetFilters,
+  applyFilters,
 } = filtersSlice.actions;
+
+export default filtersSlice.reducer;

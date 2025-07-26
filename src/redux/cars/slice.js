@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCars, fetchCarById, fetchBrands } from "./operations";
+import { fetchCars, fetchCarById, fetchFilteredCars } from "./operations";
 
 const carsSlice = createSlice({
   name: "cars",
@@ -16,9 +16,20 @@ const carsSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchCars.fulfilled, (state, action) => {
+            .addCase(fetchCars.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.items = action.payload;
+        state.error = null;
+        
+        const carsData = action.payload.cars || action.payload;
+        if (Array.isArray(carsData)) {
+          state.items = carsData;
+          const brands = [...new Set(carsData.map((car) => car.brand))];
+          state.brands = brands;
+        } else {
+          console.warn("fetchCars payload does not contain cars array:", action.payload);
+          state.items = [];
+          state.brands = [];
+        }
       })
       .addCase(fetchCars.rejected, (state, action) => {
         state.isLoading = false;
@@ -36,15 +47,23 @@ const carsSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
-      .addCase(fetchBrands.pending, (state) => {
+      .addCase(fetchFilteredCars.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(fetchBrands.fulfilled, (state, action) => {
+            .addCase(fetchFilteredCars.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.brands = action.payload;
+        state.error = null;
+        
+        const carsData = action.payload.cars || action.payload;
+        if (Array.isArray(carsData)) {
+          state.items = carsData;
+        } else {
+          console.warn("fetchFilteredCars payload does not contain cars array:", action.payload);
+          state.items = [];
+        }
       })
-      .addCase(fetchBrands.rejected, (state, action) => {
+      .addCase(fetchFilteredCars.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       });
