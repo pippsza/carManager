@@ -5,9 +5,9 @@ axios.defaults.baseURL = "https://car-rental-api.goit.global";
 
 export const fetchCars = createAsyncThunk(
   "cars/fetchCars",
-  async (_, thunkAPI) => {
+  async (page = 1, thunkAPI) => {
     try {
-      const res = await axios.get("/cars");
+      const res = await axios.get(`/cars?page=${page}`);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -17,10 +17,10 @@ export const fetchCars = createAsyncThunk(
 
 export const fetchFilteredCars = createAsyncThunk(
   "cars/fetchFilteredCars",
-  async (filters, thunkAPI) => {
+  async ({ filters, page = 1 }, thunkAPI) => {
     try {
       const params = new URLSearchParams();
-
+      
       if (filters.brand) {
         params.append("brand", filters.brand);
       }
@@ -36,13 +36,13 @@ export const fetchFilteredCars = createAsyncThunk(
       if (filters.limit) {
         params.append("limit", filters.limit);
       }
-      if (filters.page) {
-        params.append("page", filters.page);
+      if (page) {
+        params.append("page", page);
       }
-
+      
       const queryString = params.toString();
       const url = queryString ? `/cars?${queryString}` : "/cars";
-
+      
       console.log("Fetching cars with URL:", url);
       const res = await axios.get(url);
       return res.data;
@@ -50,9 +50,7 @@ export const fetchFilteredCars = createAsyncThunk(
       return thunkAPI.rejectWithValue(error.message);
     }
   }
-);
-
-export const fetchCarById = createAsyncThunk(
+);export const fetchCarById = createAsyncThunk(
   "cars/fetchCarById",
   async (carId, thunkAPI) => {
     try {

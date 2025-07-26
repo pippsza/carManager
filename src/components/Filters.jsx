@@ -13,6 +13,7 @@ import {
   setMileageFilter,
 } from "../redux/filters/slice.js";
 import { fetchFilteredCars } from "../redux/cars/operations.js";
+import { resetCars } from "../redux/cars/slice.js";
 
 const formatNumberWithCommas = (num) => {
   if (!num) return "";
@@ -134,7 +135,7 @@ export default function Filters() {
     });
 
     const filters = {};
-
+    
     if (selectedBrand) {
       filters.brand = selectedBrand;
     }
@@ -150,10 +151,10 @@ export default function Filters() {
 
     console.log("Sending filters to API:", filters);
 
-    dispatch(fetchFilteredCars(filters));
-  };
-
-  const customStyles = {
+    // Reset cars before new search to prevent duplicates
+    dispatch(resetCars());
+    dispatch(fetchFilteredCars({ filters, page: 1 }));
+  };  const customStyles = {
     control: (provided) => ({
       ...provided,
 
