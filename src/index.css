@@ -55,7 +55,7 @@
   }
   input,
   textarea {
-    @apply bg-inputs text-main border border-border rounded-md px-3 py-2 outline-none transition-colors duration-200 focus:ring-2 focus:ring-ring focus:border-transparent;
+    @apply bg-inputs text-main border border-border rounded-md px-3 py-2 outline-none transition-colors duration-200  focus:border-transparent;
   }
   body {
     @apply bg-background text-foreground;

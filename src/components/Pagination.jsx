@@ -41,7 +41,7 @@ export default function Pagination() {
       <button
         onClick={handleLoadMore}
         disabled={isLoadingMore}
-        className="bg-transparent border-button border-[1px] rounded-[12px] text-main w-39 h-11 hover:border-button-hover transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+        className="bg-transparent border-button border-[1px] rounded-[12px] text-main w-39 h-11 hover:border-button-hover transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
       >
         {isLoadingMore ? "Loading..." : "Load more"}
       </button>

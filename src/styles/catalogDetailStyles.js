@@ -13,10 +13,10 @@ export const catalogDetailStyles = {
   locationText: "text-main text-[16px] font-medium",
   idText: "text-gray text-[16px] font-medium truncate",
 
-  listContainer: "flex flex-col gap-4 bg-gray-50 rounded-b-lg",
+  listContainer: "flex flex-col gap-4",
   listItem: "flex items-center gap-2 text-main text-[16px] font-medium",
 
-  mainContainer: "grid grid-cols-[640px_488px] gap-18 py-21 h-255",
+  mainContainer: "grid grid-cols-[640px_488px] gap-18 py-21",
   leftColumn: "flex flex-col gap-10",
   rightColumn: "flex flex-col justify-between h-193",
   carImage: "w-full h-128 object-cover object-center rounded-[19px]",

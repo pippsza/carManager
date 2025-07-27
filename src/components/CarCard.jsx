@@ -46,7 +46,7 @@ export default function CarCard({ car }) {
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-transparent"></div>
           <button
             onClick={handleFavoriteClick}
-            className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center hover:scale-110 transition-transform"
+            className="absolute top-4 right-4 w-7 h-7 flex items-center justify-center hover:scale-110 transition-transform cursor-pointer"
           >
             <Icon name={isFavorite ? "heart2" : "heart"} className="w-5 h-5" />
           </button>
