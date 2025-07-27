@@ -7,7 +7,7 @@ const CarHeader = ({ car, getCityFromAddress, formatMileage }) => {
     <>
       <div className={catalogDetailStyles.headerRow}>
         <h2 className={catalogDetailStyles.mainTitle}>
-          {car.brand} {car.model},{car.year}
+          {car.brand} {car.model}, {car.year}
         </h2>
         <p className={catalogDetailStyles.idText}>id: {car.id}</p>
       </div>

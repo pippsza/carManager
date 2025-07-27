@@ -20,7 +20,7 @@ export const catalogDetailStyles = {
   leftColumn: "flex flex-col gap-10",
   rightColumn: "flex flex-col justify-between h-193",
   carImage: "w-full h-128 object-cover object-center rounded-[19px]",
-  headerRow: "flex gap-4 items-center",
+  headerRow: "flex gap-4 items-center flex-wrap",
   locationRow: "flex items-center gap-1 text-main text-[16px] font-medium mb-4",
   formInputsContainer: "flex flex-col gap-4 w-full",
   formHeader: "w-full",
