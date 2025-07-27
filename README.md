@@ -105,7 +105,7 @@ This application integrates with the GoIT Car Rental API:
 
 ## 🌐 Live Demo
 
-Visit the live application: [RentalCar on Vercel](https://your-vercel-url.vercel.app)
+Visit the live application: [RentalCar on Vercel](https://car-manager-one-sigma.vercel.app/catalog)
 
 ## 👨‍💻 Author
 
