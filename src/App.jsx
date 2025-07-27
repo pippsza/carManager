@@ -31,11 +31,38 @@ function App() {
     <>
       <Toaster
         toastOptions={{
-          duration: 3000,
-          position: "top-left",
+          duration: 4000,
+          position: "top-right",
           style: {
-            fontSize: "12px",
-            borderRadius: "8px",
+            fontSize: "14px",
+            fontWeight: "500",
+            borderRadius: "12px",
+            padding: "16px 20px",
+            backgroundColor: "var(--main)",
+            color: "white",
+            border: "none",
+            boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+            fontFamily: "var(--font-family)",
+          },
+          success: {
+            style: {
+              backgroundColor: "var(--button)",
+              color: "white",
+            },
+            iconTheme: {
+              primary: "white",
+              secondary: "var(--button)",
+            },
+          },
+          error: {
+            style: {
+              backgroundColor: "#ef4444",
+              color: "white",
+            },
+            iconTheme: {
+              primary: "white",
+              secondary: "#ef4444",
+            },
           },
         }}
       />

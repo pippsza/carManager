@@ -341,7 +341,7 @@ export default function Filters() {
         <div>
           <button
             onClick={handleSearch}
-            className="w-39 h-11 rounded-[12px] font-medium transition-colors flex items-center justify-center"
+            className="w-39 h-11 rounded-[12px] font-medium transition-colors flex items-center justify-center hover:cursor-pointer"
             style={{
               backgroundColor: "var(--button)",
               color: "white",
