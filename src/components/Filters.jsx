@@ -307,7 +307,7 @@ export default function Filters() {
                 value={formatNumberWithCommas(mileageFrom)}
                 onChange={handleMileageFromChange}
                 placeholder="3,000"
-                className="w-full pl-12 pr-3 py-3 rounded-l-[12px] text-sm font-medium border-none outline-none text-center"
+                className="w-full pl-12 pr-3 py-3 rounded-l-[12px] text-sm font-medium border-none outline-none text-center focus:ring-0"
                 style={{
                   backgroundColor: "var(--inputs)",
                   color: "var(--main)",
@@ -317,7 +317,7 @@ export default function Filters() {
             <div className="w-px h-11 z-99 bg-gray-light"></div>
             <div className="relative w-40">
               <span
-                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sm font-medium"
+                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-sm font-medium "
                 style={{ color: "var(--main)" }}
               >
                 To
@@ -327,7 +327,7 @@ export default function Filters() {
                 value={formatNumberWithCommas(mileageTo)}
                 onChange={handleMileageToChange}
                 placeholder="5,500"
-                className="w-full pl-8 pr-3 py-3 rounded-r-[12px] text-sm font-medium border-none outline-none text-center"
+                className="w-full pl-8 pr-3 py-3 rounded-r-[12px] text-sm font-medium border-none outline-none text-center focus:ring-0"
                 style={{
                   backgroundColor: "var(--inputs)",
                   color: "var(--main)",

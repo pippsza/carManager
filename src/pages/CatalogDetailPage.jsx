@@ -1,155 +1,119 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCars } from "../redux/cars/operations";
+import { fetchCarById } from "../redux/cars/operations";
 import {
-  selectCars,
+  selectCurrentCar,
   selectIsLoading,
   selectError,
 } from "../redux/cars/selectors";
+import Container from "../components/Container";
+import Loader from "../components/Loader";
+import Button from "../components/Button";
+
+const inputStyles =
+  "w-full h-12 border-none bg-inputs px-5 py-3 rounded-[12px]";
 
 const CatalogDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cars = useSelector(selectCars);
+  const car = useSelector(selectCurrentCar);
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
-  const car = cars.find((car) => car.id === parseInt(id));
-
   useEffect(() => {
-    if (cars.length === 0) {
-      dispatch(fetchCars());
+    if (id) {
+      dispatch(fetchCarById(id));
     }
-  }, [dispatch, cars.length]);
+  }, [dispatch, id]);
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="py-21">
+        <Container>
+          <Loader />
+        </Container>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-          <strong className="font-bold">Ошибка!</strong>
-          <span className="block sm:inline"> {error}</span>
-        </div>
+      <div className="py-21">
+        <Container>
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-main mb-4">
+              Ошибка загрузки
+            </h1>
+            <p className="text-gray mb-6">{error}</p>
+            <Button
+              onClick={() => navigate("/catalog")}
+              name="Вернуться к каталогу"
+              className="w-auto px-6"
+            />
+          </div>
+        </Container>
       </div>
     );
   }
 
   if (!car) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">
-            Автомобиль не найден
-          </h1>
-          <button
-            onClick={() => navigate("/catalog")}
-            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors"
-          >
-            Вернуться к каталогу
-          </button>
-        </div>
+      <div className="py-21">
+        <Container>
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-main mb-4">Car not found</h1>
+            <Button
+              onClick={() => navigate("/catalog")}
+              name="Вернуться к каталогу"
+              className="w-auto px-6"
+            />
+          </div>
+        </Container>
       </div>
     );
   }
 
+  const formatMileage = (mileage) => {
+    return mileage.toLocaleString().replace(/,/g, " ");
+  };
+
   return (
-    <div className="container mx-auto px-4 py-8">
-      <button
-        onClick={() => navigate("/catalog")}
-        className="mb-6 text-blue-600 hover:text-blue-800 flex items-center"
-      >
-        ← Назад к каталогу
-      </button>
-
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-        <div className="md:flex">
-          <div className="md:w-1/2">
-            <img
-              src={car.img || "/placeholder-car.jpg"}
-              alt={car.make + " " + car.model}
-              className="w-full h-96 object-cover"
-            />
-          </div>
-          <div className="md:w-1/2 p-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">
-              {car.make} {car.model}
-            </h1>
-
-            <div className="space-y-4">
-              <div className="flex justify-between border-b pb-2">
-                <span className="font-semibold text-gray-700">
-                  Год выпуска:
-                </span>
-                <span className="text-gray-600">{car.year}</span>
-              </div>
-
-              <div className="flex justify-between border-b pb-2">
-                <span className="font-semibold text-gray-700">Тип:</span>
-                <span className="text-gray-600">{car.type}</span>
-              </div>
-
-              <div className="flex justify-between border-b pb-2">
-                <span className="font-semibold text-gray-700">
-                  Расход топлива:
-                </span>
-                <span className="text-gray-600">
-                  {car.fuelConsumption} л/100км
-                </span>
-              </div>
-
-              <div className="flex justify-between border-b pb-2">
-                <span className="font-semibold text-gray-700">
-                  Объем двигателя:
-                </span>
-                <span className="text-gray-600">{car.engineSize}L</span>
-              </div>
-
-              {car.accessories && car.accessories.length > 0 && (
-                <div>
-                  <span className="font-semibold text-gray-700">
-                    Дополнительные опции:
-                  </span>
-                  <ul className="mt-2 space-y-1">
-                    {car.accessories.map((accessory, index) => (
-                      <li key={index} className="text-gray-600 text-sm">
-                        • {accessory}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-
-            <div className="mt-8">
-              <div className="text-3xl font-bold text-blue-600 mb-4">
-                ${car.rentalPrice}/день
-              </div>
-              <button className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-colors">
-                Забронировать
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {car.description && (
-          <div className="p-8 border-t">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              Описание
+    <Container className="grid grid-cols-[640px_488px] gap-18 py-21">
+      <div className="flex flex-col gap-10">
+        <img
+          src={car.img}
+          alt={`${car.brand} ${car.model}`}
+          className="w-full h-128 object-cover object-center rounded-[19px]"
+        />
+        <div className="w-full h-122 border-[1px] p-8 rounded-[10px] border-gray-light flex flex-col gap-6 justify-center items-center">
+          <div className="w-full">
+            <h3 className="text-main font-semibold text-[20px] leading-[120%] mb-2 ">
+              Book your car now
             </h3>
-            <p className="text-gray-600 leading-relaxed">{car.description}</p>
+            <p className="text-gray text-[16px] leading-[125%] ">
+              Stay connected! We are always ready to help you.
+            </p>
           </div>
-        )}
+          <div className="flex flex-col gap-4 w-full">
+            <input type="text" placeholder="Name*" className={inputStyles} />
+            <input type="text" placeholder="Email*" className={inputStyles} />
+            <input
+              type="text"
+              placeholder="Booking Date"
+              className={inputStyles}
+            />
+
+            <textarea
+              placeholder="Comment"
+              className={`${inputStyles} resize-none h-22 pt-3 pr-5 pb-14 pl-5 overflow-hidden`}
+            ></textarea>
+          </div>
+          <Button name="Send" className="w-39 h-11" />
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

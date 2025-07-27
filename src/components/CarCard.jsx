@@ -31,7 +31,7 @@ export default function CarCard({ car }) {
   const secondLineItems = [
     car.type,
     car.model,
-    `${car.mileage.toLocaleString()} km`,
+    `${car.mileage.toLocaleString().replace(/,/g, " ")} km`,
   ];
 
   return (
@@ -65,7 +65,11 @@ export default function CarCard({ car }) {
           <CarInfo items={secondLineItems} />
         </div>
       </div>
-      <Button link={car.id} name="Read More" className="w-full h-11" />
+      <Button
+        link={`/catalog/${car.id}`}
+        name="Read More"
+        className="w-full h-11"
+      />
     </div>
   );
 }
