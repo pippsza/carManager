@@ -42,31 +42,23 @@ const carsSlice = createSlice({
         const currentPage = parseInt(action.payload.page) || 1;
 
         if (Array.isArray(carsData)) {
-          // If it's page 1 or we're starting fresh, replace items
           if (currentPage === 1) {
             state.items = carsData;
           } else {
-            // For subsequent pages, append only if we don't already have these cars
             const existingIds = new Set(state.items.map((car) => car.id));
             const newCars = carsData.filter((car) => !existingIds.has(car.id));
             state.items = [...state.items, ...newCars];
           }
 
-          // Update brands from all loaded cars
           const allBrands = [...new Set(state.items.map((car) => car.brand))];
           state.brands = allBrands;
         } else {
-          console.warn(
-            "fetchCars payload does not contain cars array:",
-            action.payload
-          );
           if (currentPage === 1) {
             state.items = [];
             state.brands = [];
           }
         }
 
-        // Update pagination data
         state.pagination = {
           totalCars: action.payload.totalCars || 0,
           page: currentPage,
@@ -108,26 +100,19 @@ const carsSlice = createSlice({
         const currentPage = parseInt(action.payload.page) || 1;
 
         if (Array.isArray(carsData)) {
-          // If it's page 1, replace items (new search); otherwise append
           if (currentPage === 1) {
             state.items = carsData;
           } else {
-            // For subsequent pages, append only if we don't already have these cars
             const existingIds = new Set(state.items.map((car) => car.id));
             const newCars = carsData.filter((car) => !existingIds.has(car.id));
             state.items = [...state.items, ...newCars];
           }
         } else {
-          console.warn(
-            "fetchFilteredCars payload does not contain cars array:",
-            action.payload
-          );
           if (currentPage === 1) {
             state.items = [];
           }
         }
 
-        // Update pagination data
         state.pagination = {
           totalCars: action.payload.totalCars || 0,
           page: currentPage,

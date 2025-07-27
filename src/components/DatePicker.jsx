@@ -61,14 +61,11 @@ const DatePicker = ({ value, onChange, placeholder, className }) => {
     const lastDay = new Date(year, month + 1, 0);
     const daysInMonth = lastDay.getDate();
 
-    // Get first day of week (0 = Sunday, 1 = Monday, etc.)
-    // Convert to Monday = 0, Sunday = 6
     let firstDayOfWeek = firstDay.getDay();
     firstDayOfWeek = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
 
     const days = [];
 
-    // Add empty cells for days before the first day of month
     for (let i = 0; i < firstDayOfWeek; i++) {
       const prevDate = new Date(year, month, -(firstDayOfWeek - 1 - i));
       days.push({
@@ -78,7 +75,6 @@ const DatePicker = ({ value, onChange, placeholder, className }) => {
       });
     }
 
-    // Add days of current month
     for (let day = 1; day <= daysInMonth; day++) {
       days.push({
         date: day,
@@ -87,8 +83,7 @@ const DatePicker = ({ value, onChange, placeholder, className }) => {
       });
     }
 
-    // Add days from next month to fill the grid
-    const remainingCells = 42 - days.length; // 6 rows × 7 days
+    const remainingCells = 42 - days.length;
     for (let day = 1; day <= remainingCells; day++) {
       const nextDate = new Date(year, month + 1, day);
       days.push({
@@ -146,7 +141,6 @@ const DatePicker = ({ value, onChange, placeholder, className }) => {
 
       {isOpen && (
         <div className="absolute top-full left-0 mt-2 bg-white border border-gray-light rounded-[12px] shadow-lg z-50 p-4 w-80">
-          {/* Header */}
           <div className="flex items-center justify-between mb-4">
             <button
               type="button"
@@ -167,7 +161,6 @@ const DatePicker = ({ value, onChange, placeholder, className }) => {
             </button>
           </div>
 
-          {/* Week days */}
           <div className="grid grid-cols-7 gap-1 mb-2">
             {weekDays.map((day) => (
               <div
@@ -179,7 +172,6 @@ const DatePicker = ({ value, onChange, placeholder, className }) => {
             ))}
           </div>
 
-          {/* Calendar grid */}
           <div className="grid grid-cols-7 gap-1">
             {days.map((day, index) => (
               <button

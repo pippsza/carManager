@@ -16,14 +16,9 @@ function App() {
   const hasFetched = useRef(false);
 
   useEffect(() => {
-    // Only fetch if we haven't fetched yet and there are no cars
     if (!hasFetched.current && cars.length === 0) {
       hasFetched.current = true;
-      console.log("Fetching cars...");
-      dispatch(fetchCars(1)).then((response) => {
-        console.log("Cars response:", response);
-        console.log("Cars payload:", response.payload);
-      });
+      dispatch(fetchCars(1));
     }
   }, [dispatch, cars.length]);
 

@@ -32,7 +32,6 @@ export default function Pagination() {
     }
   };
 
-  // Don't show button if no more pages or currently loading
   if (!hasMorePages) {
     return null;
   }

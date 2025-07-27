@@ -23,19 +23,16 @@ const CatalogPage = () => {
       <Container>
         <Filters />
 
-        {/* Показываем основной лоадер только при начальной загрузке */}
         {isLoading && !isLoadingMore && <Loader />}
 
         {error && <EmptyState message="Something went wrong" />}
 
-        {/* Показываем контент если он загружен или если идет дозагрузка */}
         {!isLoading && !error && cars?.length > 0 && <CarList cars={cars} />}
 
         {!isLoading && !error && cars?.length === 0 && (
           <EmptyState message="No cars found" />
         )}
 
-        {/* Показываем пагинацию если есть контент и нет основной загрузки */}
         {!isLoading && !error && cars?.length > 0 && <Pagination />}
       </Container>
     </div>

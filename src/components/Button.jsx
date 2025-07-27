@@ -24,7 +24,6 @@ export default function Button({
     );
   }
 
-  // If it's a form button or has onClick, render as button
   if (onClick || type === "submit") {
     return (
       <button

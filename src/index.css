@@ -95,7 +95,6 @@
   }
 }
 
-/* Toast animations */
 @keyframes slide-in {
   from {
     transform: translateX(100%);

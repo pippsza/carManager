@@ -39,7 +39,6 @@ export const selectFilteredCars = createSelector(
   [selectCars, selectAppliedFilters],
   (cars, appliedFilters) => {
     if (!Array.isArray(cars)) {
-      console.warn("Cars is not an array:", cars);
       return [];
     }
 

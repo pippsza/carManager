@@ -67,8 +67,6 @@ export default function Filters() {
   const mileageFrom = useSelector(selectMileageFromFilter);
   const mileageTo = useSelector(selectMileageToFilter);
 
-  console.log("Brands in Filters:", brands);
-
   const brandOptions = [
     { value: "", label: "Enter the text" },
     ...brands.map((brand) => ({ value: brand, label: brand })),
@@ -127,13 +125,6 @@ export default function Filters() {
   };
 
   const handleSearch = () => {
-    console.log("Search with filters:", {
-      selectedBrand,
-      priceTo,
-      mileageFrom,
-      mileageTo,
-    });
-
     const filters = {};
 
     if (selectedBrand) {
@@ -149,9 +140,6 @@ export default function Filters() {
       filters.maxMileage = mileageTo;
     }
 
-    console.log("Sending filters to API:", filters);
-
-    // Reset cars before new search to prevent duplicates
     dispatch(resetCars());
     dispatch(fetchFilteredCars({ filters, page: 1 }));
   };
@@ -176,14 +164,10 @@ export default function Filters() {
     }),
     option: (provided, state) => ({
       ...provided,
-      //   backgroundColor: state.isSelected
-      //     ? "var(--button)"
-      //     : state.isFocused
-      //     ? "var(--badges)"
-      //     : "white",
+
       backgroundColor: "white",
       color: state.isSelected ? "var(--main)" : "var(--gray)",
-      //   borderRadius: "12px",
+
       fontSize: "14px",
       fontWeight: "500",
       "&:hover": {
@@ -193,7 +177,6 @@ export default function Filters() {
     singleValue: (provided) => ({
       ...provided,
       fontSize: "14px",
-      //   backgroundColor: "red",
       color: "var(--main)",
       fontWeight: "500",
     }),
@@ -234,7 +217,6 @@ export default function Filters() {
   return (
     <div className="mb-14 flex justify-center">
       <div className="flex gap-4 items-end">
-        {/* Car brand */}
         <div>
           <label
             className="block text-sm font-medium mb-2"
@@ -261,7 +243,6 @@ export default function Filters() {
           />
         </div>
 
-        {/* Price/hour */}
         <div>
           <label
             className="block text-sm font-medium mb-2"
@@ -286,7 +267,6 @@ export default function Filters() {
           />
         </div>
 
-        {/* Car mileage */}
         <div>
           <label
             className="block text-sm font-medium mb-2"
@@ -337,7 +317,6 @@ export default function Filters() {
           </div>
         </div>
 
-        {/* Search Button */}
         <div>
           <button
             onClick={handleSearch}
